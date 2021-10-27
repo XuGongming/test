@@ -1,13 +1,14 @@
 package com.example.demo.hello;
 
 import com.example.demo.hello.dto.User;
+import com.example.demo.hello.dto.UserVO;
 import com.example.demo.hello.service.UserService;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RestController;
+import io.swagger.annotations.Api;
+import org.springframework.web.bind.annotation.*;
 
 import javax.annotation.Resource;
 import java.util.List;
-
+@Api
 @RestController
 public class HelloController {
 
@@ -20,7 +21,16 @@ public class HelloController {
     }
 
     @GetMapping("/list/user")
-    public List<User> listUser() {
+    public List<UserVO> listUser() {
         return userService.findAll();
+    }
+    @PostMapping("/update/user")
+    public String updateUserName(User user) {
+        return userService.updateUserName(user);
+    }
+
+    @PostMapping("/insert/user")
+    public String insertUser(@RequestBody User user) {
+        return userService.insert(user);
     }
 }
